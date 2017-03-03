@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>Dem Shoes</title>
+</head>
+<body>
+    <h1>Dem Shoes Dipectory</h1>
+    <h2>All the shoes you never heard of</h2>
+
+    {% if Stores is not empty %}
+        <p>Here are a list of Stores:</p>
+        <ul>
+            {% for store in Stores %}
+                <li><a href="/Stores/{{ store.getId }}">{{ store.getName }}</a></li>
+            {% endfor %}
+        </ul>
+        {% elseif %}
+            <h2>oops, sorry we're just starting our business and have nothing to show.  Please be kind and enter in a shoe store unknown to most</h2>
+    {% endif %}
+
+
+    <form action='/create/Stores' method='post'>
+        <label for='store_name'>Store name:</label>
+        <input id='store_name' name='store_name' type='text'>
+
+        <button type='submit'>Add Store:</button>
+    </form>
+    <form action='/delete_Stores' method='post'>
+        <button type='submit'>Clear all Stores</button>
+    </form>
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>
