@@ -40,6 +40,30 @@
                 $this->id = $GLOBALS['DB']->lastInsertId();
             }
 
+            function saveBrand()
+            {
+                $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getBrandName()}');");
+                $this->id = $GLOBALS['DB']->lastInsertId();
+            }
+            static function getAll()
+            {
+                $returned_brands = $GLOBALS['DB']->query("SELECT * FROM brands;");
+                $brands = [];
+                foreach($returned_brands as $brand) {
+                   $name = $brand['name'];
+                   $id = $brand['id'];
+                   $new_Brand = new Brand($name, $id);
+                   array_push($brands, $new_Brand);
+                }
+                return $brands;
+            }
+
+            static function deleteAllBrands()
+            {
+                $GLOBALS['DB']->exec("DELETE FROM brands;");
+            }
+
+
             function getStores()
             {
                 $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM brands JOIN stores_brands ON (stores_brands.brand_id = brands.id)
