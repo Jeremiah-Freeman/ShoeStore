@@ -13,6 +13,10 @@
 
     class StoreTest extends PHPUnit_Framework_TestCase
     {
+        protected function teardown()
+      {
+          Store::deleteAll();
+      }
 
 
         function test_GetName()
@@ -37,6 +41,68 @@
             // Assert
             $this->assertEquals("Puma", $result);
         }
+
+        function testGetId()
+        {
+            //Arrange
+            $id = 1;
+            $name = "Nike";
+            $test_store = new Store($name, $id);
+            //Act
+            $result = $test_store->getId();
+            //Assert
+            $this->assertEquals(1, $result);
+        }
+        function testSave()
+        {
+            //Arrange
+            $name = "Yellow Inc";
+            $id = 1;
+            $test_store = new Store($name, $id);
+            $test_store->save();
+            //Act
+            $result = Store::getAll();
+            //Assert
+            $this->assertEquals($test_store, $result[0]);
+        }
+
+        function testGetAll()
+        {
+            //Arrange
+            $name = "NIKE";
+            $id = 1;
+            $test_store = new Store($name, $id);
+            $test_store->save();
+
+            $name2 = "Lago";
+            $id2 = 2;
+            $test_store2 = new Store($name2, $id2);
+            $test_store2->save();
+            //Act
+            $result = Store::getAll();
+            //Assert
+            $this->assertEquals([$test_store, $test_store2], $result);
+        }
+
+        function testDeleteAll()
+        {
+            //Arrange
+            $name = "NIKE";
+            $id = 1;
+            $test_store = new Store($name, $id);
+            $test_store->save();
+
+            $name2 = "Lago";
+            $id2 = 2;
+            $test_store2 = new Store($name2, $id2);
+            $test_store2->save();
+            //Act
+            Store::deleteAll();
+            //Assert
+            $result = Store::getAll();
+            $this->assertEquals([], $result);
+        }
+
 
     }
 
