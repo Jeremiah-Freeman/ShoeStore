@@ -63,6 +63,24 @@
                 $GLOBALS['DB']->exec("DELETE FROM brands;");
             }
 
+            static function find($search_id)
+            {
+                $foundbrand = null;
+                $brands = Brand::getAll();
+                foreach($brands as $brands) {
+                    $brands_id = $brands->getBrandId();
+                    if ($brands_id == $search_id) {
+                        $foundbrand = $brands;
+                    }
+                }
+                return $foundbrand;
+            }
+
+            function addStore($input)
+            {
+                $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$input->getId()}, {$this->getBrandId()});");
+            }
+
 
             function getStores()
             {
