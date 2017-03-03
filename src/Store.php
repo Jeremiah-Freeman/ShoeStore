@@ -71,7 +71,7 @@ class Store
 
        function addBrand($input)
        {
-           $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$this->getId()}, {$input->getId()});");
+           $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$this->getId()}, {$input->getBrandId()});");
        }
        function getBrands()
        {
@@ -88,7 +88,7 @@ class Store
                $id = $brand['id'];
                $new_brand = new Brand($name,$id);
                array_push($brands,$new_brand);
-            var_dump($new_brand);
+
            }
            return $brands;
        }

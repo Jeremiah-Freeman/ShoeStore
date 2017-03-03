@@ -9,16 +9,16 @@
                 $this->name = $name;
                 $this->id = $id;
             }
-            function getName()
+            function getBrandName()
             {
                 return $this->name;
             }
 
-            function setName($new_name)
+            function setBrandName($new_name)
             {
                 $this->name = (string) $new_name;
             }
-            function getId()
+            function getBrandId()
             {
                 return $this->id;
             }
@@ -34,11 +34,9 @@
                 $GLOBALS['DB']->exec("DELETE FROM brands;");
             }
 
-
-
             function save()
             {
-                $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getName()}');");
+                $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getBrandName()}');");
                 $this->id = $GLOBALS['DB']->lastInsertId();
             }
 
@@ -46,7 +44,7 @@
             {
                 $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM brands JOIN stores_brands ON (stores_brands.brand_id = brands.id)
                 JOIN stores ON (stores.id = stores_brands.store_id)
-                WHERE brands.id = {$this->getId()};");
+                WHERE brands.id = {$this->getBrandId()};");
                 $stores = [];
 
                 foreach($returned_stores as $store) {
