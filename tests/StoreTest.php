@@ -131,7 +131,7 @@
            $name1 = "Fredreix";
            $id2 = 2;
            $test_brand = new Brand($name1, $id2);
-           $test_brand->save();
+           $test_brand->saveBrand();
 
            //Act
            $test_store->addBrand($test_brand);
@@ -169,7 +169,7 @@
            $name2 = "Yelps";
            $id2 = 2;
            $newBrand = new Brand($name2, $id2);
-           $newBrand->save();
+           $newBrand->saveBrand();
            // Act
            $teststore->addBrand($newBrand);
            // Assert

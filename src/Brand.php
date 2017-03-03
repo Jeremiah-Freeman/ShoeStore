@@ -34,11 +34,7 @@
                 $GLOBALS['DB']->exec("DELETE FROM brands;");
             }
 
-            function save()
-            {
-                $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getBrandName()}');");
-                $this->id = $GLOBALS['DB']->lastInsertId();
-            }
+        
 
             function saveBrand()
             {
