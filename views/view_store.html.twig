@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Dem Shoes</title>
+</head>
+<body>
+    <h1>Dem Shoes Directory</h1>
+    <h2>welcome to {{ store.getName }} shoe directory</h2>
+
+    {% if unique_brands is not empty %}
+        <p>Brands sold at this retailer:</p>
+        <ul>
+            {% for brand in unique_brands %}
+                <li><a href="/brands/{{ brand.getBrandId }}">{{ brand.getBrandName }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <h2>oops, {{ store.getName }} doesn't have any shoes to view. Add your own below.</h2>
+
+    {% endif %}
+
+
+    <form action='/add/brand/store/{{store.getId}}' method='post'>
+        <input id="store_id" name="store_id" type="hidden" value="{{ store.getId }}">
+        <label for="brand_id">Select brand: </label>
+        <select id='brand_id' name='brand_id' type='text'>
+          {% for brand in brands %}
+            <option value="{{ brand.getBrandId }}"> {{ brand.getBrandName }} </option>
+          {% endfor %}
+        </select>
+        <button type='submit'>Add to store</button>
+    </form>
+
+
+
+
+
+    <p><a href='/'>Home</a></p>
+</body>
+</html>
