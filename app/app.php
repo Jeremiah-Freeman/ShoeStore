@@ -1,4 +1,5 @@
 <?php
+
     date_default_timezone_set("America/Los_Angeles");
     require_once __DIR__."/../vendor/autoload.php";
     require_once __DIR__."/../src/Store.php";
@@ -33,7 +34,7 @@
         $new_store->save();
         return $app['twig']->render('index.html.twig', [
             'stores' => Store::getAll(),
-            'brands' => Brand::getAll() ,
+            'brands' => Brand::getAll(),
             'new_store' => $new_store]);
     });
 
@@ -53,7 +54,7 @@
         $new_brand->saveBrand();
         return $app['twig']->render('index.html.twig', [
             'stores' => Store::getAll(),
-            'brands' => Brand::getAll() ,
+            'brands' => Brand::getAll(),
             'new_store' => $new_brand]);
     });
 
@@ -63,8 +64,9 @@
         $new_store->save();
         return $app['twig']->render('view_carrier.html.twig', [
             'stores' => Store::getAll(),
-            'brands' => Brand::getAll() ,
+            'brands' => Brand::getAll(),
             'new_store' => $new_store]);
+    });
 
     $app->post('/add/brand/store/{id}', function($id) use ($app) {
         $current_store = Store::find($_POST['store_id']);
