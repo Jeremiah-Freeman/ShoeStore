@@ -120,6 +120,13 @@
            'stores' => Store::getAll()));
    });
 
+   $app->delete("/editbrand/{id}" , function ($id) use ($app) {
+      $cuttent_brand = Brand::find($id);
+      $cuttent_brand->delete();
+      return $app ['twig']-> render('edit_brand.html.twig' , array(
+          'brand' => Brand::getAll()));
+  });
+
 
     return $app;
 ?>
