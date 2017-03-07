@@ -113,6 +113,13 @@
             'stores' => Store::getAll()]);
     });
 
+    $app->delete("/editstore/{id}" , function ($id) use ($app) {
+       $current_store = Store::find($id);
+       $current_store->delete();
+       return $app ['twig']-> render('edit_store.html.twig' , array(
+           'stores' => Store::getAll()));
+   });
+
 
     return $app;
 ?>

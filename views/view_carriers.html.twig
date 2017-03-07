@@ -10,7 +10,7 @@
         <p>Add stores that sell: {{ brand.getBrandName }}</p>
         <ul>
             {% for store in new_connection %}
-                <li><a href="/editstores/{{ store.getId }}">{{ store.getName }}</a></li>
+                <li><a href="/editstore/{{ store.getId }}">{{ store.getName }}</a></li>
             {% endfor %}
         </ul>
         {% else %}

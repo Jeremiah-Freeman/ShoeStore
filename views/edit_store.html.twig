@@ -6,22 +6,22 @@
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
 
     <meta charset="utf-8">
-    <title>Update and Delete {{brand.getBrandName}}</title>
+    <title>Update and Delete {{store.getName}}</title>
 </head>
 <body>
     <div class="container">
         <div id="jumb" class="jumbotron">
-            <p> Update and Delete {{brand.getBrandName}}?</p>
+            <p> Update and Delete {{store.getName}}?</p>
         </div>
-        <div id="addbrand" class="col-md-4">
+        <div id="addstore" class="col-md-4">
             <div class="form-group">
-                <form action="/brand/{{ brand.getId }}" method="post">
+                <form action="/store/{{ store.getId }}" method="post">
                     <input name="_method" type="hidden" value="patch">
-                    <label class="form-label" for="name">Rename brand:</label>
+                    <label class="form-label" for="name">Rename store:</label>
                     <input class="form-control" id="name" name="name" type="text">
                     <button  class="btn btn-primary" type="submit">Update</button>
                 </form>
-                <form class="" action="/deletebrand/{{ brand.getBrandId }}" method="post">
+                <form class="" action="/deletestore/{{ store.getId }}" method="post">
                     <input type="hidden" name="_method" value="delete">
                     <button class="btn btn-primary"  type="submit">delete</button>
                 </form>
