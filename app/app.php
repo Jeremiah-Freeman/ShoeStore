@@ -107,9 +107,11 @@
     $app->delete("/deletestore/{id}" , function ($id) use ($app) {
        $current_store = Store::find($id);
        $current_store->delete();
+       $brands = [];
        return $app ['twig']-> render('index.html.twig' , array(
            'stores' => Store::getAll(),
-           'new_store' => Brand::getAll()));
+           'brands' =>  Brand::getAll()));
+
    });
 
    $app->get("/editstore/{id}" , function ($id) use ($app) {
