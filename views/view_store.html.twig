@@ -23,9 +23,9 @@
         <input id="store_id" name="store_id" type="hidden" value="{{ store.getId }}">
         <label for="brand_id">Select brand: </label>
         <select id='brand_id' name='brand_id' type='text'>
-          {% for brand in brands %}
-            <option value="{{ brand.getBrandId }}"> {{ brand.getBrandName }} </option>
-          {% endfor %}
+            {% for brand in brands %}
+                <option value="{{ brand.getBrandId }}"> {{ brand.getBrandName }} </option>
+            {% endfor %}
         </select>
         <button type='submit'>Add to store</button>
     </form>

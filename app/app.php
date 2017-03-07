@@ -82,12 +82,12 @@
 
     $app->get('/brands/{id}', function($id) use ($app) {
         $view_brand = Brand::find($id);
-            return $app['twig']->render('view_store.html.twig', [
-            'store' => $current_store,
+        $store = [];
+        return $app['twig']->render('view_carriers.html.twig', [
+            'stores' => $store,
             'all_stores' => Store::getAll(),
             'brands' => Brand::getAll(),
-            'unique_brands' => $view_brand->getStore()]);
-
+            'brand' => $view_brand]);
     });
 
     $app->post("/delete_stores", function() use($app){

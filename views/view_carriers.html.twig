@@ -7,7 +7,7 @@
     <h2>All the brands you never heard of</h2>
 
     {% if stores is not empty %}
-        <p>Here are a list of Stores:</p>
+        <p>Add stores that sell: {{ brand.getName }}</p>
         <ul>
             {% for store in stores %}
                 <li>{{ store.getName }}</a></li>
@@ -17,10 +17,10 @@
             <h2>oops, noone is carrying that brand </h2>
     {% endif %}
     <form action='/addstore' method='post'>
-        <input id="brand_id" name="brand_id" type="hidden" value="{{ store.getId }}">
+        <input id="brand_id" name="brand_id" type="hidden" value="{{ brand.getBrandId }}">
         <label for="store_name">Select Store: </label>
         <select id='store_name' name='store_name' type='text'>
-          {% for store in stores %}
+          {% for store in all_stores %}
             <option value="{{ store.getId }}"> {{ store.getName }} </option>
           {% endfor %}
         </select>
