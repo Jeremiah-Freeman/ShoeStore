@@ -1,3 +1,5 @@
+
+
 <?php
 
     date_default_timezone_set("America/Los_Angeles");
@@ -34,15 +36,15 @@
         $new_store->save();
         return $app['twig']->render('index.html.twig', [
             'stores' => Store::getAll(),
-            'brands' => Brand::getAll(),
-            'new_store' => $new_store]);
+            'brands' => Brand::getAll()]);
     });
 
     $app->get('/stores/{id}', function($id) use ($app) {
         $view_store = Store::find($id);
+
         return $app['twig']->render('view_store.html.twig', [
             'stores' => Store::getAll(),
-            'unique_brands' => $view_store->getBrands(),
+            'unique_brands'=>$view_store->getBrands(),
             'brands' => Brand::getAll(),
             'store' => $view_store]);
 
@@ -87,45 +89,96 @@
 
     $app->get('/brands/{id}', function($id) use ($app) {
         $view_brand = Brand::find($id);
+        // $link_to_store->addStore($view_brand);
+        $view_brand->getStores();
         $store = [];
         $new_store = [];
         $brand = [];
+        $connection = [];
         return $app['twig']->render('view_carriers.html.twig', [
             'stores' => $store,
             'all_stores' => Store::getAll(),
             'brands' => Brand::getAll(),
             'brand' => $view_brand,
             'new_store' => $new_store,
-            'new_connection' => $brand]);
+            'new_connection' => $view_brand->getStores()]);
     });
 
-    $app->post("/delete_stores", function() use($app){
-        Store::deleteAll();
-        return $app['twig']->render('index.html.twig', [
-            'stores' => Store::getAll(),
-            'brands' => Brand::getAll()]);
-    });
-
-    $app->post("/delete_brands", function() use($app){
-        Brand::deleteAll();
-        return $app['twig']->render('index.html.twig', [
-            'brands' => Brand::getAll(),
-            'stores' => Store::getAll()]);
-    });
-
-    $app->delete("/editstore/{id}" , function ($id) use ($app) {
+    $app->delete("/deletestore/{id}" , function ($id) use ($app) {
        $current_store = Store::find($id);
        $current_store->delete();
-       return $app ['twig']-> render('edit_store.html.twig' , array(
-           'stores' => Store::getAll()));
+       return $app ['twig']-> render('index.html.twig' , array(
+           'stores' => Store::getAll(),
+           'new_store' => Brand::getAll()));
    });
 
-   $app->delete("/editbrand/{id}" , function ($id) use ($app) {
-      $cuttent_brand = Brand::find($id);
-      $cuttent_brand->delete();
-      return $app ['twig']-> render('edit_brand.html.twig' , array(
-          'brand' => Brand::getAll()));
+   $app->get("/editstore/{id}" , function ($id) use ($app) {
+      $current_store = Store::find($id);
+      return $app ['twig']-> render('edit_store.html.twig' , array(
+          'store' => $current_store));
   });
+
+   $app->get("/editbrand/{id}" , function ($id) use ($app) {
+      $current_brand = Brand::find($id);
+      return $app ['twig']-> render('edit_brand.html.twig' , array(
+          'brand' => $current_brand));
+
+  });
+
+  $app->delete("/deletebrand/{id}" , function ($id) use ($app) {
+     $current_brand = Brand::find($id);
+     $current_brand->delete();
+     return $app ['twig']-> render('edit_brand.html.twig' , array(
+         'brand' => Brand::getAll()));
+ });
+
+
+ $app->post("/delete_stores", function() use($app){
+     Store::deleteAll();
+     return $app['twig']->render('index.html.twig', [
+         'stores' => Store::getAll(),
+         'brands' => Brand::getAll()]);
+ });
+
+ $app->post("/delete_brands", function() use($app){
+     Brand::deleteAll();
+     return $app['twig']->render('index.html.twig', [
+         'brands' => Brand::getAll(),
+         'stores' => Store::getAll()]);
+ });
+
+
+ $app->patch("/update/{id}", function($id) use ($app) {
+       $name = $_POST['name'];
+       $current_store = Store::find($id);
+       $current_store->update($name);
+       $store = [];
+       $new_store = [];
+       $view_store = [];
+       return $app ['twig'] -> render ('view_store.html.twig' , array(
+           'brand' => Brand::getAll(),
+           'store' => $current_store,
+           'stores' => $store,
+           'brand' => $view_brand,
+           'new_store' => $new_store));
+   });
+
+   $app->patch("/update/{id}", function($id) use ($app) {
+       $name = $_POST['name'];
+       $current_brand = Brand::find($id);
+       $current_brand->update($name);
+       $store = [];
+       $new_store = [];
+       $brand = [];
+       $link_to_store = [];
+       return $app ['twig'] -> render ('view_carriers.html.twig' , array(
+           'store' => Store::getAll(),
+           'brand' => $current_brand,
+           'stores' => $store,
+           'brand' => $view_brand,
+           'new_store' => $new_store,
+           'link_to_store' => $link_to_store));
+   });
 
 
     return $app;

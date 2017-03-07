@@ -5,17 +5,14 @@
 <body>
     <h1>Dem Shoes Directory</h1>
     <h2>{{ brand.getBrandName }}</h2>
+    <p>Add stores that sell: {{ brand.getBrandName }}</p>
 
-    {% if new_connection is not empty %}
-        <p>Add stores that sell: {{ brand.getBrandName }}</p>
         <ul>
             {% for store in new_connection %}
                 <li><a href="/editstore/{{ store.getId }}">{{ store.getName }}</a></li>
             {% endfor %}
         </ul>
-        {% else %}
-            <h2>oops, noone is carrying that brand right now...are you?  If so add below. </h2>
-    {% endif %}
+
     <form action='/addstore' method='post'>
         <input id="brand_id" name="brand_id" type="hidden" value="{{ brand.getBrandId }}">
         <label for="store_id">Select Store: </label>
@@ -24,7 +21,7 @@
                 <option value="{{ store.getId }}"> {{ store.getName }} </option>
             {% endfor %}
         </select>
-        <button type='submit'>Add to store</button>
+        <button type='submit'>Add to brand</button>
     </form>
 
 </body>
