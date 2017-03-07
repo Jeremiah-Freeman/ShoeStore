@@ -10,7 +10,7 @@
         <p>Brands sold at this retailer:</p>
         <ul>
             {% for brand in unique_brands %}
-                <li><a href="/brands/{{ brand.getBrandId }}">{{ brand.getBrandName }}</a></li>
+                <li><a href="/edit_brand/{{ brand.getBrandId }}">{{ brand.getBrandName }}</a></li>
             {% endfor %}
         </ul>
         {% else %}
