@@ -60,15 +60,20 @@
 
     $app->post('/addstore', function() use ($app) {
 
-        $new_store = new Store($_POST['store_name']);
-        $new_store->save();
-        return $app['twig']->render('view_carrier.html.twig', [
+        $new_store = Store::find($_POST['store_id']);
+        $brand = Brand::find($_POST['brand_id']);
+        $brand->addStore($new_store);
+        $stores = Store::getAll();
+        return $app['twig']->render('view_carriers.html.twig', [
             'stores' => Store::getAll(),
             'brands' => Brand::getAll(),
-            'new_store' => $new_store]);
+            'brand' => $brand,
+            'all_stores' => $stores,
+            'new_connection' => $brand->getStores()]);
     });
 
     $app->post('/add/brand/store/{id}', function($id) use ($app) {
+
         $current_store = Store::find($_POST['store_id']);
         $current_brand = Brand::find($_POST['brand_id']);
         $current_store->addBrand($current_brand);
@@ -83,11 +88,15 @@
     $app->get('/brands/{id}', function($id) use ($app) {
         $view_brand = Brand::find($id);
         $store = [];
+        $new_store = [];
+        $brand = [];
         return $app['twig']->render('view_carriers.html.twig', [
             'stores' => $store,
             'all_stores' => Store::getAll(),
             'brands' => Brand::getAll(),
-            'brand' => $view_brand]);
+            'brand' => $view_brand,
+            'new_store' => $new_store,
+            'new_connection' => $brand]);
     });
 
     $app->post("/delete_stores", function() use($app){

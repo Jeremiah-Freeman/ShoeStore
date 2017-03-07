@@ -4,16 +4,15 @@
 </head>
 <body>
     <h1>Dem Shoes Directory</h1>
-    <h2>All the shoes you never heard of.</h2>
-
+    
     {% if stores is not empty %}
-        <h2>The brand youre looking for is sold at these locations:</h2>
+        <h2>All the brands you've never heard of: </h2>
         <ul>
             {% for store in stores %}
                 <li><a href="/stores/{{ store.getId }}">{{ store.getName }}</a></li>
             {% endfor %}
         </ul>
-        {% else %}
+    {% else %}
             <h2>oops, sorry we're just starting our business and have nothing to show.  Please be kind and enter in a shoe store unknown to most</h2>
     {% endif %}
 
