@@ -15,7 +15,7 @@
         </div>
         <div id="addstore" class="col-md-4">
             <div class="form-group">
-                <form action="/update/{{ store.getId }}" method="post">
+                <form action="/updatestore/{{ store.getId }}" method="post">
                     <input name="_method" type="hidden" value="patch">
                     <label class="form-label" for="name">Rename store:</label>
                     <input class="form-control" id="name" name="name" type="text">

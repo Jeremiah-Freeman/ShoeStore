@@ -34,6 +34,11 @@
                 $GLOBALS['DB']->exec("DELETE FROM brands;");
             }
 
+            function update($new_name)
+           {
+               $GLOBALS['DB']->exec("UPDATE brands SET name = '{$new_name}' WHERE id = {$this->getBrandId()};");
+               $this->setBrandName($new_name);
+           }
 
 
             function saveBrand()

@@ -4,9 +4,9 @@
 </head>
 <body>
     <h1>Dem Shoes Directory</h1>
-    
+
     {% if stores is not empty %}
-        <h2>All the brands you've never heard of: </h2>
+        <h2>Store: </h2>
         <ul>
             {% for store in stores %}
                 <li><a href="/stores/{{ store.getId }}">{{ store.getName }}</a></li>
@@ -26,7 +26,7 @@
         </form>
 
     {% if brands is not empty %}
-        <p>Here are a list of some brands people love.</p>
+        <p>Brands</p>
         <ul>
             {% for brand in brands %}
                 <li><a href="/brands/{{ brand.getBrandId }}">{{ brand.getBrandName }}</a></li>

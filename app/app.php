@@ -139,6 +139,14 @@ $app->get('/', function() use ($app) {
                 'stores' => Store::getAll()));
             });
 
+            $app->delete("/deletestore/{id}" , function ($id) use ($app) {
+                $current_store = Store::find($id);
+                $current_store->delete();
+                return $app ['twig']-> render('index.html.twig' , array(
+                'brands' => Brand::getAll(),
+                'stores' => Store::getAll()));
+            });
+
 
             $app->post("/delete_stores", function() use($app){
                 Store::deleteAll();
@@ -155,37 +163,39 @@ $app->get('/', function() use ($app) {
             });
 
 
-            $app->patch("/update/{id}", function($id) use ($app) {
-                $current_store = Store::find($id);
+            $app->patch("/updatebrand/{id}", function($id) use ($app) {
                 $name = $_POST['name'];
-                $current_store->update($name);
+                $current_brand = Brand::find($id);
+                // var_dump($current_store);
+                $current_brand->update($name);
                 $store = [];
                 $new_store = [];
                 $view_store = [];
-                return $app ['twig'] -> render ('view_store.html.twig' , array(
-                'brand' => Brand::getAll(),
-                'store' => $current_store,
+                return $app ['twig'] -> render ('view_carriers.html.twig' , array(
+                'store' => Brand::getAll(),
+                'brand' => $current_brand,
                 'stores' => $store,
                 'brands' => $view_store,
                 'new_store' => $new_store,
-                'unique_brands' => $current_store->getBrands()));
+                'all_stores' => Store::getAll(),
+                'new_connection' => $view_store));
             });
 
-            $app->patch("/update/{id}", function($id) use ($app) {
+            $app->patch("/updatestore/{id}", function($id) use ($app) {
                 $name = $_POST['name'];
-                $current_brand = Brand::find($id);
-                $current_brand->update($name);
+                $current_store = Store::find($id);
+                $current_store->update($name);
                 $store = [];
                 $new_store = [];
                 $brand = [];
                 $link_to_store = [];
-                return $app ['twig'] -> render ('view_carriers.html.twig' , array(
-                'store' => Store::getAll(),
-                'brand' => $current_brand,
+                return $app ['twig'] -> render ('view_store.html.twig' , array(
+                'store' => $current_store,
+                'brand' => $store,
                 'stores' => $store,
-                'brand' => $view_brand,
-                'new_store' => $new_store,
-                'link_to_store' => $link_to_store));
+                'brands' => $link_to_store,
+                'unique_brands' => $current_store->getBrands(),
+                'brands' => Brand::getAll()));
             });
 
 
