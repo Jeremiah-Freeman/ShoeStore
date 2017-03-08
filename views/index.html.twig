@@ -1,48 +1,61 @@
 <html>
 <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
     <title>Dem Shoes</title>
 </head>
 <body>
-    <h1>Dem Shoes Directory</h1>
-
-    {% if stores is not empty %}
-        <h2>Store: </h2>
-        <ul>
-            {% for store in stores %}
-                <li><a href="/stores/{{ store.getId }}">{{ store.getName }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-            <h2>oops, sorry we're just starting our business and have nothing to show.  Please be kind and enter in a shoe store unknown to most</h2>
-    {% endif %}
-
-    <form action='/stores' method='post'>
-        <label for='store_name'>Store name:</label>
-        <input id='store_name' name='store_name' type='text'>
-        <button type='submit'>Add Store:</button>
-    </form>
-        <form action='/delete_stores' method='post'>
-            <button type='submit'>Clear all Stores</button>
-        </form>
-
-    {% if brands is not empty %}
-        <p>Brands</p>
-        <ul>
-            {% for brand in brands %}
-                <li><a href="/brands/{{ brand.getBrandId }}">{{ brand.getBrandName }}</a></li>
-            {% endfor %}
-        </ul>
-        {% else %}
-            <h2>Please add some of your weirdest brands!</h2>
-    {% endif %}
-
-    <form action='/add/brand' method='post'>
-        <label for='brand_name'>Brand name:</label>
-        <input id='brand_name' name='brand_name' type='text'>
-        <button type='submit'>Add Brand:</button>
-    </form>
-        <form action='/delete_brands' method='post'>
-            <button type='submit'>Clear all Brands</button>
-        </form>
+    <div id="DirectoryName" class="jumbotron">
+        <h2>Dem Shoes Directory</h2>
+    </div>
+    <div id="marginstores" >
+        <div class="container">
+            <div class="jumbotron">
+                <form action='/stores' method='post'>
+                    <label class="panel panel-info" for='store_name'>Store name:</label>
+                    <input id='store_name' class="form-control" name='store_name' type='text'>
+                    <button type='submit'>Add Store:</button>
+                </form>
+                <form action='/delete_stores' method='post'>
+                    <button type='submit'>Clear all Stores</button>
+                    {% if stores is not empty %}
+                    <h2>stores: </h2>
+                    <ul>
+                        {% for store in stores %}
+                        <li><a href="/stores/{{ store.getId }}">{{ store.getName }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <h4>oops, sorry we're empty like space. <br> Please add some stores to directory. </h4>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div  id="marginbrands" class="jumbotron">
+            <div class="form-group">
+                <form action='/add/brand' method='post'>
+                    <label class="panel panel-info" for='brand_name'>Brand name:</label>
+                    <input id='brand_name' class="form-control" name='brand_name' type='text'>
+                    <button type='submit'>Add Brand:</button>
+                </form>
+                <form action='/delete_brands' method='post'>
+                    <button type='submit'>Clear all Brands</button>
+                    {% if brands is not empty %}
+                    <h2>Brands:</h2>
+                    <ul>
+                        {% for brand in brands %}
+                        <li><a href="/brands/{{ brand.getBrandId }}">{{ brand.getBrandName }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <h4>oops, sorry we're empty like space. <br> Please add some brands to directory.</h4>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
