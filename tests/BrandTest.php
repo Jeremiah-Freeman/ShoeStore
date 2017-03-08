@@ -32,6 +32,18 @@
             $this->assertEquals($name, $result);
         }
 
+        function testBrandId()
+        {
+            //Arrange
+            $id = 1;
+            $name = "Jettter";
+            $test_store = new Brand($name, $id);
+            //Act
+            $result = $test_store->getBrandId();
+            //Assert
+            $this->assertEquals(1, $result);
+        }
+
         function test_SetName()
         {
             // Arrange
